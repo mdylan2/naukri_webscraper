@@ -4,17 +4,17 @@ import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 from dash_table import DataTable
 from dash.dependencies import Output, Input, State
-from model import scraper
+from model import scraper, r
 import pandas as pd
 from pandas import DataFrame
 import urllib.parse
+
 
 app = dash.Dash(__name__,external_stylesheets = [dbc.themes.FLATLY])
 
 cities = pd.read_csv("complete_city_list.csv", header = None)
 cities['value'] = cities.iloc[:,0]
 cities.columns = ['label','value']
-
 base =['Page No.', 'url', 'organization', 'title', 'experience', 'skill','description', 'salary', 'postedby', 'time']
 
 navbar = dbc.NavbarSimple(
@@ -29,7 +29,12 @@ navbar = dbc.NavbarSimple(
 
 body = dbc.Container(
     [
-        dcc.Location(id="location"),
+        dcc.Interval(
+            id="interval",
+            interval=1*500, # in milliseconds
+            n_intervals=0
+        ),
+
         dbc.Row(
             [
                 dbc.Col(
@@ -82,7 +87,12 @@ body = dbc.Container(
                 dbc.Col(
                     [
                         html.H3("Please Select a City (or List of Cities) and Freshness", style = {'margin': '0px'})
-                    ], id = "title", width = "auto"
+                    ], id = "title", width = 8
+                ),
+                dbc.Col(
+                    [
+                        dbc.Button(id = "page-number", color = "success")
+                    ], width = "auto",
                 ),
                 dbc.Col(
                     [
@@ -184,6 +194,23 @@ def download_df(data):
     csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(csv_string)
     return csv_string
 
+@app.callback(
+    [Output("page-number","children"),
+    Output("page-number","color")],
+    [Input("interval","n_intervals")]
+)
+def update_page(interval):
+    page = r.get("page")
+    if page is None:
+        return ["Awaiting Scraping Instructions","warning"]
+    try:
+        return [f"Scraping page {int(page)}...","warning"]
+    except:
+        return [page.decode("utf-8"), "success"]
+
 if __name__ == '__main__':
-    app.run_server(debug=True)
-    #  , host = '192.168.1.73', port = 8050
+    app.run_server(
+        debug=True,
+        host = '192.168.1.73', 
+        port = 8050
+    ) 
