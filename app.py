@@ -211,6 +211,4 @@ def update_page(interval):
 if __name__ == '__main__':
     app.run_server(
         debug=True,
-        host = '192.168.1.73', 
-        port = 8050
     ) 

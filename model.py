@@ -8,8 +8,9 @@ import pandas as pd
 from pandas import DataFrame
 from time import strftime, gmtime
 import redis
+import os
 
-r = redis.StrictRedis(host = 'localhost', port = 6379, db = 0)
+r = redis.from_url(os.environ.get("REDIS_URL"))
 
 # Generate a URL with a specified page number and city
 def generate_url(page_number = 1):
