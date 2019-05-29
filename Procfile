@@ -1,1 +1,1 @@
-web: waitress-serve --port:8050 app:server
+web: waitress-serve --port=$PORT app:server
