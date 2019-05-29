@@ -210,5 +210,5 @@ def update_page(interval):
 
 if __name__ == '__main__':
     app.run_server(
-        debug=True,
+        debug=False
     ) 
