@@ -7,10 +7,7 @@ from collections import defaultdict
 import pandas as pd
 from pandas import DataFrame
 from time import strftime, gmtime
-import redis
-import os
 
-r = redis.from_url("redis://localhost:6379")
 # os.environ.get("REDIS_URL")
 # Generate a URL with a specified page number and city
 def generate_url(page_number = 1):
@@ -122,22 +119,19 @@ def scraper(**kwargs):
     page = 1
     final = DataFrame()
     start = dt.now()
-    r.set("page",0)
     while next_check and page <= page_limit:
         url = generate_url(page)
         request = requester(url, query)
         if request.status_code != 200:
             total_time = dt.now() - start
             print("We got a faulty status code.")
-            r.set("page","Faulty Status Code")
             return final, total_time
         soup = BeautifulSoup(request.content, "lxml")
         data = scrape_page(soup,page)
         final = pd.concat([final,data])
         next_check = next_page(soup)
         print(f"Finished scraping page {page}...")
-        r.incr("page")
         page += 1
     total_time = dt.now() - start
-    r.set("page","Done!")    
+    print("Done!")    
     return final, total_time
