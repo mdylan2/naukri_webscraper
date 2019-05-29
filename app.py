@@ -11,7 +11,7 @@ import urllib.parse
 
 
 app = dash.Dash(__name__,external_stylesheets = [dbc.themes.FLATLY])
-server = app.server
+
 cities = pd.read_csv("complete_city_list.csv", header = None)
 cities['value'] = cities.iloc[:,0]
 cities.columns = ['label','value']
@@ -210,5 +210,5 @@ def update_page(interval):
 
 if __name__ == '__main__':
     app.run_server(
-        debug=False
+        debug=True,
     ) 

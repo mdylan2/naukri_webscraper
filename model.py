@@ -10,8 +10,8 @@ from time import strftime, gmtime
 import redis
 import os
 
-r = redis.from_url(os.environ.get("REDIS_URL"))
-
+r = redis.from_url("redis://localhost:6379")
+# os.environ.get("REDIS_URL")
 # Generate a URL with a specified page number and city
 def generate_url(page_number = 1):
     if page_number == 1:
