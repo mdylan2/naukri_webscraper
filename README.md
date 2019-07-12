@@ -1,6 +1,6 @@
-# An App to Help People Find Jobs in India
+# An App to Scrape Data from Naukri
 ## Description
-This repository contains files to help people find all the jobs in one (or many) cities in India released within certain time frames.
+This repository contains files to scrape data released in specified cities in India released on Naukri for certain time frames.
 
 ## List of Files
 The repository contains the following files:
