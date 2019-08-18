@@ -24,9 +24,9 @@ please see https://conda.io/activation
 Type "help", "copyright", "credits" or "license" for more information.
 >>> from model import *
 ```
-3. Run the `scraper` function to scrape data. Currently, the scraper function only accepts the following keyword arguments: cities, freshness, page_limit. Cities can be an item like "bangalore" or a list like ["mumbai", "bangalore"]. Freshness has to be a number of days within which a job was released (at the time of writing, Naukri only accepts 1, 3, 7, 15 or 30 days). Page Limit is where you can set the number of pages you'd like to scrape. Here's an example to scrape all the jobs in Bangalore released over the last 7 days.
+3. Run the `scraper` function to scrape data. Currently, the scraper function only accepts the following keyword arguments: `cities`, `freshness`, `page_limit`. Cities can be an item like `"bangalore"` or a list like `["mumbai", "bangalore"]`. Freshness has to be a number of days within which a job was released (at the time of writing, Naukri only accepts 1, 3, 7, 15 or 30 days). Page Limit is where you can set the number of pages you'd like to scrape. Here's an example to scrape all the jobs in Bangalore released over the last 7 days:
 ```
-scraped_naukri_data, time_taken_to_scrape = scraper("bangalore", 7) 
+scraped_naukri_data, time_taken_to_scrape = scraper(cities="bangalore", freshness=7) 
 ```
 
 ## Questions
