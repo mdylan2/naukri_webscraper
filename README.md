@@ -1,4 +1,4 @@
-# An Tool to Scrape Job Data from Naukri
+# A Tool to Scrape Job Data from Naukri
 ## Description
 This repository contains files to scrape all the jobs released in specific cities in India on Naukri within a specific time frame.
 
